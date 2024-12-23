@@ -17,6 +17,7 @@ $ pip install poetry
 #generate pyproject.toml
 $ poetry init
 
+
 #add to poetry current requirements.txt deps
 $ poetry add some-lib
 $ cat requirements.txt | xargs poetry add
@@ -28,3 +29,22 @@ $ pre-commit install
 $ pre-commit uninstall
 # Run against all the files
 $ pre-commit run --all-files
+
+
+#black, fix code issues
+$ python -m black web_scrapping.py
+
+#isort, order imports
+$ python -m isort web_scrapping.py
+
+#flake8,
+$ flake8 web_scrapping.py
+
+#interrogate,
+$ interrogate -vv
+
+# importchecker
+$ importchecker web_scrapping.py
+
+
+#TODO setup pre-commit

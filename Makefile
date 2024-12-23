@@ -1,5 +1,5 @@
-hello:
-	@echo "Sample hello"
+help:
+	@echo "Help to use"
 
 clean:
-	@echo "Cleaning"
+	@rm *.csv
