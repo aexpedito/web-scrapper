@@ -1,5 +1,5 @@
 hello:
-	echo "Sample hello"
+	@echo "Sample hello"
 
 clean:
-	echo "Cleaning"
+	@echo "Cleaning"
