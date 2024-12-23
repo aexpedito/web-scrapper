@@ -1,0 +1,29 @@
+#venv activate/deactivate
+$ source ./.venv/bin/activate
+$ deactivate
+$ poetry shell
+
+#poetry env info
+$ poetry env info
+
+--upgrade pip
+$ python -m pip install --upgrade pip
+
+--install packages
+$ activate
+$ pip install pydantic
+$ pip install poetry
+
+#generate pyproject.toml
+$ poetry init
+
+#add to poetry current requirements.txt deps
+$ poetry add some-lib
+$ cat requirements.txt | xargs poetry add
+
+#pre-commit
+$ poetry add pre-commit
+$ vim .pre-commit-config.yaml
+$ pre-commit install
+# Run against all the files
+$ pre-commit run --all-files
