@@ -1,6 +1,6 @@
 """
 Some docstring for validation pass.
-This is a web_scrapper for.
+This is a web_scrapper for Arxiv.
 """
 from abc import abstractmethod
 
@@ -10,7 +10,7 @@ from singleton import Singleton
 #
 class Web_Scrapper(Singleton):
     """
-        Abstract class for a Web Scrapper.
+        Abstract class for a Web Scrapper and Singleton.
 
         Args:
             None
@@ -20,10 +20,10 @@ class Web_Scrapper(Singleton):
     @abstractmethod
     def config(self) -> None:
         """
-            Abstract class for a Web Scrapper.
+            Abstract method to config a Web Scrapper.
 
             Args:
-                a
+                None
             Returns:
                 None
         """
@@ -32,7 +32,7 @@ class Web_Scrapper(Singleton):
     @abstractmethod
     def grab(self) -> None:
         """
-            Abstract class for a Web Scrapper.
+            Abstract method to grab data to a Web Scrapper.
 
             Args:
                 None
@@ -44,7 +44,7 @@ class Web_Scrapper(Singleton):
     @abstractmethod
     def persist(self) -> None:
         """
-            Abstract class for a Web Scrapper.
+            Abstract method to persist data from grab for a Web Scrapper.
 
             Args:
                 None
@@ -55,7 +55,7 @@ class Web_Scrapper(Singleton):
 
     def scrapping(self) -> None:
         """
-            Abstract class for a Web Scrapper.
+            Abstract method for Scrapping.
 
             Args:
                 None
@@ -68,7 +68,7 @@ class Web_Scrapper(Singleton):
 
 class Web_Scrapper_Factory(Singleton):
     """
-        Abstract class for a Web Scrapper.
+        Abstract class for a Web Scrapper Factory pattern.
 
         Args:
             a
