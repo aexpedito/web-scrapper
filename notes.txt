@@ -52,5 +52,10 @@ $ interrogate -vv
 $ importchecker web_scrapping.py
 
 #bump2version
+$ bumpversion --new-version 1.0.1 patch
+
+#pre-commit
+-->https://stefaniemolin.com/articles/devx/pre-commit/setup-guide/
+
 
 #TODO setup pre-commit
