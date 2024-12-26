@@ -27,6 +27,7 @@ $ poetry run python script.py
 $ poetry add some-lib
 $ cat requirements.txt | xargs poetry add
 
+
 #pre-commit
 $ poetry add pre-commit
 $ vim .pre-commit-config.yaml
@@ -35,6 +36,8 @@ $ pre-commit uninstall
 # Run against all the files
 $ pre-commit run --all-files
 
+# poetry install with group
+$ poetry install --with dev
 
 #black, fix code issues
 $ python -m black web_scrapping.py
