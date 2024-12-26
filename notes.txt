@@ -17,6 +17,11 @@ $ pip install poetry
 #generate pyproject.toml
 $ poetry init
 
+#poetry show dependencies
+$ poetry show
+
+#executa um script .py com a env do poetry
+$ poetry run python script.py
 
 #add to poetry current requirements.txt deps
 $ poetry add some-lib
@@ -46,5 +51,6 @@ $ interrogate -vv
 # importchecker
 $ importchecker web_scrapping.py
 
+#bump2version
 
 #TODO setup pre-commit
