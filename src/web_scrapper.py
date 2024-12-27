@@ -4,7 +4,7 @@ This is a web_scrapper for Arxiv.
 """
 from abc import abstractmethod
 
-from singleton import Singleton
+from src.singleton import Singleton
 
 
 #
@@ -23,7 +23,8 @@ class Web_Scrapper(Singleton):
             Abstract method to config a Web Scrapper.
 
             Args:
-                None
+                url: base URL for web page
+                encoding: page encoding, UTF-8
             Returns:
                 None
         """
@@ -62,7 +63,7 @@ class Web_Scrapper(Singleton):
             Returns:
                 None
         """
-        self.captar()
+        self.grab()
         self.persist()
 
 
