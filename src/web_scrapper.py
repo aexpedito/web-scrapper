@@ -43,12 +43,12 @@ class Web_Scrapper(Singleton):
         raise NotImplementedError
 
     @abstractmethod
-    def persist(self) -> None:
+    def persist(self, data) -> None:
         """
             Abstract method to persist data from grab for a Web Scrapper.
 
             Args:
-                None
+                data: Dataframe to persist as csv
             Returns:
                 None
         """

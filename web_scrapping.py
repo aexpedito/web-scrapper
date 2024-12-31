@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.web_scrapper import Web_Scrapper, Web_Scrapper_Factory
+import pandas as pd
 
 
 class Arxiv_Web_Srapper(Web_Scrapper):
@@ -44,20 +45,42 @@ class Arxiv_Web_Srapper(Web_Scrapper):
                 Web_Scrapper
         """
         i = 0
-        max_articles = 839
+        max_articles = 852
         skip = self.skip
         show = self.show
 
+        # salva no arquivo
+        titles = []
+        authors = []
+        subjects = []
+
         while i < max_articles:
+            i = skip
             tmp_url = self.url + "?skip={}&show={}".format(skip, show)
             html = requests.get(tmp_url)
             soup = BeautifulSoup(html.text, "html.parser")
             articles_dl = soup.find_all("dd")
             skip += show
-            i+=1
+
+            for article in articles_dl:
+                title = article.find(class_="list-title")
+                titles.append(title.text)
+
+                author = article.find(class_="list-authors")
+                authors.append(author.text)
+
+                subject = article.find(class_="list-subjects")
+                subjects.append(subject.text)
 
 
-    def persist(self) -> None:
+        df = pd.DataFrame(columns=['title', 'authors', 'subject'])
+        df['title'] = titles
+        df['authors'] = authors
+        df['subject'] = subjects
+        return df
+
+
+    def persist(self, data) -> None:
         """
             Abstract class for a Web Scrapper.
 
@@ -66,7 +89,7 @@ class Arxiv_Web_Srapper(Web_Scrapper):
             Returns:
                 Web_Scrapper
         """
-        pass
+        data.to_csv('output.csv')
 
     def scrapping(self) -> None:
         """
@@ -117,4 +140,6 @@ if __name__ == "__main__":
 
     web_scrapper = Arxiv_Scrapper_Factory().create()
     web_scrapper.config(url, encoding, skip, show)
-    web_scrapper.grab()
+    data_df = web_scrapper.grab()
+    web_scrapper.persist(data_df)
+
