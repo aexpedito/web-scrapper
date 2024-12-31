@@ -18,15 +18,20 @@ class Web_Scrapper(Singleton):
             None
     """
     @abstractmethod
-    def config(self) -> None:
+    def config(self, url, encoding, skip, show) -> None:
         """
-            Abstract method to config a Web Scrapper.
+        Abstract class for a Web Scrapper.
 
-            Args:
-                url: base URL for web page
-                encoding: page encoding, UTF-8
-            Returns:
-                None
+        Parameters
+        -----------
+        url: str
+            Url for web page.
+        encoding: str
+            Web page encoding.
+        skip: int
+            Initial step to skip.
+        show: int
+            How many items to display in page.
         """
         raise NotImplementedError
 
@@ -45,12 +50,17 @@ class Web_Scrapper(Singleton):
     @abstractmethod
     def persist(self, data) -> None:
         """
-            Abstract method to persist data from grab for a Web Scrapper.
+        Abstract class for a Web Scrapper.
 
-            Args:
-                data: Dataframe to persist as csv
-            Returns:
-                None
+        Parameters
+        ------------
+        data: Dataframe
+            pd.Dataframe to persist
+
+        Returns
+        ------------
+        None
+            Nao retorna nada
         """
         raise NotImplementedError
 
@@ -84,6 +94,6 @@ class Web_Scrapper_Factory(Singleton):
             Args:
                 None
             Returns:
-                Web_Scrapper
+                Web_Scrapper: return a web scrapper
         """
         raise NotImplementedError

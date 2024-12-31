@@ -1,33 +1,53 @@
 """
 Some file web scrapping description.
 """
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from src.web_scrapper import Web_Scrapper, Web_Scrapper_Factory
-import pandas as pd
 
 
 class Arxiv_Web_Srapper(Web_Scrapper):
     """
-        Abstract class for a Web Scrapper and Singleton.
+    Abstract class for a Web Scrapper and Singleton.
 
-        Args:
-            None
-        Returns:
-            None
+    Attributes
+    ----------
+    url: str
+        A URL utilizada para scrapping
+    encoding: str
+        O encoding da pagina
+    skip: int
+        Relacionado a paginação da web page
+    show: int
+        A quantidade de articles da pagina
+
+    Methods
+    --------
+    config()
+        Configura o web scrapper.
+    grab()
+        Captura os dados para web scrapper.
+    persist()
+        Persiste os dados capturados
+    scrapping()
+        Roda o grab() e o persist()
     """
-    def config(self, url: str, encoding: str, skip: int, show: int) -> None:
+    def config(self, url, encoding, skip, show) -> None:
         """
-            Abstract class for a Web Scrapper.
+        Abstract class for a Web Scrapper.
 
-            Args:
-                url: url for web page
-                encoding: web page encoding
-                skip: initial step to skip
-                show: how many items to display in page
-            Returns:
-                Web_Scrapper
+        Parameters
+        -----------
+        url: str
+            Url for web page.
+        encoding: str
+            Web page encoding.
+        skip: int
+            Initial step to skip.
+        show: int
+            How many items to display in page.
         """
         self.url = url
         self.encoding = encoding
@@ -35,14 +55,16 @@ class Arxiv_Web_Srapper(Web_Scrapper):
         self.show = show
 
 
-    def grab(self) -> None:
-        """
-            Abstract class for a Web Scrapper.
 
-            Args:
-                None
-            Returns:
-                Web_Scrapper
+    def grab(self) -> pd.DataFrame:
+        """
+        Abstract class for a Web Scrapper.
+
+        Parameters:
+        ----------
+            None
+        Returns:
+                pd.Dataframe
         """
         i = 0
         max_articles = 852
@@ -82,12 +104,13 @@ class Arxiv_Web_Srapper(Web_Scrapper):
 
     def persist(self, data) -> None:
         """
-            Abstract class for a Web Scrapper.
+        Abstract class for a Web Scrapper.
 
-            Args:
-                None
-            Returns:
-                Web_Scrapper
+        Parameters:
+        ------------
+        data: Dataframe
+            pd.Dataframe to persist
+
         """
         data.to_csv('output.csv')
 
@@ -142,4 +165,3 @@ if __name__ == "__main__":
     web_scrapper.config(url, encoding, skip, show)
     data_df = web_scrapper.grab()
     web_scrapper.persist(data_df)
-
