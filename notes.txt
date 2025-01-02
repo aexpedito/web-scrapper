@@ -27,6 +27,9 @@ $ poetry run python script.py
 $ poetry add some-lib
 $ cat requirements.txt | xargs poetry add
 
+#ruff
+$ ruff check
+$ ruff check --fix
 
 #pre-commit
 $ poetry add pre-commit
