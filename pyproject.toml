@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "webscrapper"
-version = "1.0.1"
+version = "2.0.0"
 description = "Web Scrapper sample"
 authors = ["aexpedito"]
 readme = "README.md"
