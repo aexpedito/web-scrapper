@@ -35,10 +35,12 @@ tests:
 	@poetry install --with dev
 	@poetry run pytest --cov=tests --cov-fail-under=70
 
-install: #make sure, python 3.12, python-pip and python-venv are installed in current machine
+enable_venv:  #make sure python 3.12, python-pip and python-venv are installed in current machine
 	@rm -rf .venv/
 	@python3 -m venv .venv/
-	@source ./.venv/bin/activate
+	@. .venv/bin/activate #bash shell
+
+install:
 	@python -m pip install -q poetry==1.8.5
 	@poetry install
 
