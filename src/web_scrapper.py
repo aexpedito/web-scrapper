@@ -10,57 +10,39 @@ from src.singleton import Singleton
 #
 class Web_Scrapper(Singleton):
     """
-        Abstract class for a Web Scrapper and Singleton.
-
-        Args:
-            None
-        Returns:
-            None
+    Abstract class for a Web Scrapper and Singleton.
     """
     @abstractmethod
-    def config(self, url, encoding, skip, show) -> None:
+    def config(self, url, encoding, skip, show, max_articles) -> None:
         """
-        Abstract class for a Web Scrapper.
+        Configure web scrapper parameters.
 
         Parameters
-        -----------
-        url: str
+        ----------
+        url : str
             Url for web page.
-        encoding: str
+        encoding : str
             Web page encoding.
-        skip: int
+        skip : int
             Initial step to skip.
-        show: int
+        show : int
             How many items to display in page.
+        max_articles : int
+            Number of articles to save in .csv.
         """
         raise NotImplementedError
 
     @abstractmethod
     def grab(self) -> None:
         """
-            Abstract method to grab data to a Web Scrapper.
-
-            Args:
-                None
-            Returns:
-                None
+        Abstract class for a Web Scrapper.
         """
         raise NotImplementedError
 
     @abstractmethod
-    def persist(self, data) -> None:
+    def persist(self) -> None:
         """
         Abstract class for a Web Scrapper.
-
-        Parameters
-        ------------
-        data: Dataframe
-            pd.Dataframe to persist
-
-        Returns
-        ------------
-        None
-            Nao retorna nada
         """
         raise NotImplementedError
 

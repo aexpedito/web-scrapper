@@ -1,0 +1,3 @@
+"""
+Singleton module for package.
+"""

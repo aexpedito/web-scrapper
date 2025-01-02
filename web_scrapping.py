@@ -1,6 +1,5 @@
 """
 Some file web scrapper description.
-
 """
 import sys
 
@@ -17,14 +16,18 @@ class Arxiv_Web_Srapper(Web_Scrapper):
 
     Attributes
     ----------
-    url: str
-        A URL utilizada para scrapping
-    encoding: str
-        O encoding da pagina
-    skip: int
-        Relacionado a paginação da web page
-    show: int
-        A quantidade de articles da pagina
+    url : str
+        A URL utilizada para scrapping.
+    encoding : str
+        O encoding da pagina.
+    skip : int
+        Relacionado a paginação da web page.
+    show : int
+        A quantidade de articles da pagina.
+    data : pandas.Dataframe
+        O Dataframe contendo os dados.
+    max_articles : int
+        Numero maximo de articles para salvar.
 
     Methods
     --------
@@ -39,18 +42,20 @@ class Arxiv_Web_Srapper(Web_Scrapper):
     """
     def config(self, url, encoding, skip, show, max_articles) -> None:
         """
-        Abstract class for a Web Scrapper.
+        Configure web scrapper parameters.
 
         Parameters
-        -----------
-        url: str
+        ----------
+        url : str
             Url for web page.
-        encoding: str
+        encoding : str
             Web page encoding.
-        skip: int
+        skip : int
             Initial step to skip.
-        show: int
+        show : int
             How many items to display in page.
+        max_articles : int
+            Number of articles to save in .csv.
         """
         self.url = url
         self.encoding = encoding
@@ -59,19 +64,12 @@ class Arxiv_Web_Srapper(Web_Scrapper):
         self.data = None
         self.max_articles = max_articles
 
-    def grab(self, max_articles) -> None:
+    def grab(self) -> None:
         """
         Abstract class for a Web Scrapper.
-
-        Parameters
-        ----------
-            None
-        Returns
-        ----------
-            pd.Dataframe
         """
         i = 0
-        self.max_articles = max_articles
+        max_articles = self.max_articles
         skip = self.skip
         show = self.show
 
@@ -109,7 +107,6 @@ class Arxiv_Web_Srapper(Web_Scrapper):
     def persist(self) -> None:
         """
         Persist data to a csv.
-
         """
         self.data.to_csv('output.csv')
 
@@ -117,21 +114,16 @@ class Arxiv_Web_Srapper(Web_Scrapper):
 
 class Arxiv_Scrapper_Factory(Web_Scrapper_Factory):
     """
-        Abstract class for a Web Scrapper and Singleton.
-
-        Args:
-            None
-        Returns:
-            None
+    Abstract class for a Web Scrapper and Singleton.
     """
     def create(self) -> Web_Scrapper:
         """
         Abstract class for a Web Scrapper.
 
-        Args:
-            None
-        Returns:
-            Web_Scrapper: return a web scrapper
+        Returns
+        -------
+        Web_Scrapper
+            Return a web scrapper.
         """
         return Arxiv_Web_Srapper()
 
@@ -142,10 +134,6 @@ Start function
 if __name__ == "__main__":
     """
     In order to run first parameter is max_articles to grab from given URL.
-
-    Sample:
-    make
-    python
     """
     url = "https://arxiv.org/list/cs.AI/recent" #?skip=0&show=100
     encoding = "utf-8"
@@ -156,5 +144,5 @@ if __name__ == "__main__":
 
     web_scrapper = Arxiv_Scrapper_Factory().create()
     web_scrapper.config(url, encoding, skip, show, max_articles)
-    web_scrapper.grab(max_articles)
+    web_scrapper.grab()
     web_scrapper.persist()
