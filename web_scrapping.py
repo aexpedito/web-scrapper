@@ -1,6 +1,9 @@
 """
-Some file web scrapping description.
+Some file web scrapper description.
+
 """
+import sys
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -34,7 +37,7 @@ class Arxiv_Web_Srapper(Web_Scrapper):
     scrapping()
         Roda o grab() e o persist()
     """
-    def config(self, url, encoding, skip, show) -> None:
+    def config(self, url, encoding, skip, show, max_articles) -> None:
         """
         Abstract class for a Web Scrapper.
 
@@ -53,21 +56,22 @@ class Arxiv_Web_Srapper(Web_Scrapper):
         self.encoding = encoding
         self.skip = skip
         self.show = show
+        self.data = None
+        self.max_articles = max_articles
 
-
-
-    def grab(self) -> pd.DataFrame:
+    def grab(self, max_articles) -> None:
         """
         Abstract class for a Web Scrapper.
 
-        Parameters:
+        Parameters
         ----------
             None
-        Returns:
-                pd.Dataframe
+        Returns
+        ----------
+            pd.Dataframe
         """
         i = 0
-        max_articles = 852
+        self.max_articles = max_articles
         skip = self.skip
         show = self.show
 
@@ -99,31 +103,16 @@ class Arxiv_Web_Srapper(Web_Scrapper):
         df['title'] = titles
         df['authors'] = authors
         df['subject'] = subjects
-        return df
+        self.data = df
 
 
-    def persist(self, data) -> None:
+    def persist(self) -> None:
         """
-        Abstract class for a Web Scrapper.
-
-        Parameters:
-        ------------
-        data: Dataframe
-            pd.Dataframe to persist
+        Persist data to a csv.
 
         """
-        data.to_csv('output.csv')
+        self.data.to_csv('output.csv')
 
-    def scrapping(self) -> None:
-        """
-            Abstract class for a Web Scrapper.
-
-            Args:
-                None
-            Returns:
-                None
-        """
-        pass
 
 
 class Arxiv_Scrapper_Factory(Web_Scrapper_Factory):
@@ -137,12 +126,12 @@ class Arxiv_Scrapper_Factory(Web_Scrapper_Factory):
     """
     def create(self) -> Web_Scrapper:
         """
-            Abstract class for a Web Scrapper.
+        Abstract class for a Web Scrapper.
 
-            Args:
-                None
-            Returns:
-                Web_Scrapper: return a web scrapper
+        Args:
+            None
+        Returns:
+            Web_Scrapper: return a web scrapper
         """
         return Arxiv_Web_Srapper()
 
@@ -152,16 +141,20 @@ Start function
 """
 if __name__ == "__main__":
     """
-    Beggining
+    In order to run first parameter is max_articles to grab from given URL.
+
+    Sample:
+    make
+    python
     """
     url = "https://arxiv.org/list/cs.AI/recent" #?skip=0&show=100
     encoding = "utf-8"
     skip = 0
     show = 100
-    #html = requests.get(url)
-    #soup = BeautifulSoup(html.text, "html.parser")
+    max_articles = int(sys.argv[1])
+    print("Scrapping {} articles ...".format(max_articles))
 
     web_scrapper = Arxiv_Scrapper_Factory().create()
-    web_scrapper.config(url, encoding, skip, show)
-    data_df = web_scrapper.grab()
-    web_scrapper.persist(data_df)
+    web_scrapper.config(url, encoding, skip, show, max_articles)
+    web_scrapper.grab(max_articles)
+    web_scrapper.persist()

@@ -25,7 +25,7 @@ clear_csv:
 	@rm *.csv
 
 quality:
-	@cho "Starting quality process..."
+	@echo "Starting quality process..."
 	@poetry install --with dev
 	@poetry run pre-commit install
 	@poetry run pre-commit run --all-files
@@ -34,3 +34,13 @@ tests:
 	@echo "Starting tests processes"
 	@poetry install --with dev
 	@poetry run pytest --cov=tests --cov-fail-under=70
+
+install: #make sure, python 3.12, python-pip and python-venv are installed in current machine
+	@rm -rf .venv/
+	@pyhton3 -m venv .venv/
+	@source ./.venv/bin/activate
+	@python -m pip install -q poetry==1.8.5
+	@poetry install
+
+run:
+	@python web_scrapping.py 851

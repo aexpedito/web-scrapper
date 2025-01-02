@@ -64,17 +64,6 @@ class Web_Scrapper(Singleton):
         """
         raise NotImplementedError
 
-    def scrapping(self) -> None:
-        """
-            Abstract method for Scrapping.
-
-            Args:
-                None
-            Returns:
-                None
-        """
-        self.grab()
-        self.persist()
 
 
 class Web_Scrapper_Factory(Singleton):
