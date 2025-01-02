@@ -37,7 +37,7 @@ tests:
 
 install: #make sure, python 3.12, python-pip and python-venv are installed in current machine
 	@rm -rf .venv/
-	@pyhton3 -m venv .venv/
+	@python3 -m venv .venv/
 	@source ./.venv/bin/activate
 	@python -m pip install -q poetry==1.8.5
 	@poetry install
