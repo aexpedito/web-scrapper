@@ -78,13 +78,11 @@ class Arxiv_Web_Srapper(Web_Scrapper):
         authors = []
         subjects = []
 
-        while i < max_articles:
-            i = skip
+        while skip < max_articles:
             tmp_url = self.url + "?skip={}&show={}".format(skip, show)
             html = requests.get(tmp_url)
             soup = BeautifulSoup(html.text, "html.parser")
             articles_dl = soup.find_all("dd")
-            skip += show
 
             for article in articles_dl:
                 title = article.find(class_="list-title")
@@ -95,6 +93,11 @@ class Arxiv_Web_Srapper(Web_Scrapper):
 
                 subject = article.find(class_="list-subjects")
                 subjects.append(subject.text)
+                i += 1
+                if i >= max_articles:
+                    skip = max_articles
+                    break
+            skip += show
 
 
         df = pd.DataFrame(columns=['title', 'authors', 'subject'])
