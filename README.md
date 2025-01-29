@@ -15,3 +15,9 @@
 
 ## Validação
 1. O comando 'make quality' roda todos os hooks de validação do pre-commit.
+
+## Para criar o arquivo output.csv
+1. make run
+
+# Link para o repositório
+https://github.com/aexpedito/web-scrapper
